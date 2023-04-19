@@ -51,29 +51,10 @@ loaded_model.load_weights("C:/Users/shiv taneja/capstone project/model.h5")
 #loaded_model = load_model('fi')
 
 camera = cv2.VideoCapture(0)
-
 while camera.isOpened():
-    _, FrameImage = camera.read()
-    frame=FrameImage
-    if not _:
-        break
-    else:
-            
-        FrameImage = cv2.cvtColor(FrameImage, cv2.COLOR_BGR2RGB)
+    _,frame=camera.read()
 
-            # process the RGB frame to get the result
-        with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
-            results = pose.process(FrameImage)
-
-        print(results.pose_landmarks)
-            # draw detected skeleton on the frame
-        mp_drawing.draw_landmarks(
-            FrameImage, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
-        #ret,buffer=cv2.imencode('.jpg',FrameImage)
-        #FrameImage=buffer.tobytes()
-        cv2.imshow("ROI",FrameImage )
-
-
+    FrameImage=frame
     
     frame = cv2.flip(frame, 1)
     #cv2.imshow("", FrameImage)
@@ -89,9 +70,6 @@ while camera.isOpened():
     SHOWROI = cv2.resize(ROI, (256, 256)) 
     _, output2 = cv2.threshold(SHOWROI, 100, 255, cv2.THRESH_BINARY)
     
-    
-        
-        ## read the camera frame
     
     
        
@@ -114,6 +92,34 @@ while camera.isOpened():
     screen.blit(predict_img, (0,0))
     pygame.display.flip()
     interrupt = cv2.waitKey(10)
+    
+
+
+
+    
+    if not _:
+        break
+    else:
+            
+        FrameImage = cv2.cvtColor(FrameImage, cv2.COLOR_BGR2RGB)
+
+            # process the RGB frame to get the result
+        with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
+            results = pose.process(FrameImage)
+        FrameImage = cv2.cvtColor(FrameImage, cv2.COLOR_RGB2BGR)
+        print(results.pose_landmarks)
+            # draw detected skeleton on the frame
+        if predict[0][1]>0.7:
+            mp_drawing.draw_landmarks(
+            FrameImage, results.pose_landmarks, mp_pose.POSE_CONNECTIONS, mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2),
+                                  mp_drawing.DrawingSpec(color=(0,0,255), thickness=2, circle_radius=2))
+        else:
+             mp_drawing.draw_landmarks(
+            FrameImage, results.pose_landmarks, mp_pose.POSE_CONNECTIONS, mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2),
+                                  mp_drawing.DrawingSpec(color=(0,0,255), thickness=2, circle_radius=2))
+        #ret,buffer=cv2.imencode('.jpg',FrameImage)
+        #FrameImage=buffer.tobytes()
+        cv2.imshow("ROI",FrameImage )
 
     if interrupt & 0xFF == ord('q'): # esc key
         break
