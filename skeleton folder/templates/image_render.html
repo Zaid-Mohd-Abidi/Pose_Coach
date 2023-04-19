@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rendering Local Images Using Flask</title>
+</head>
+<body>
+    {% for filename in image_filenames %}
+    <p align="left"><img src="{{ url_for('static', filename='image/' + filename) }}"height="200px" width="300px"></p>
+    {% endfor %}
+  
+</body>
+</html>

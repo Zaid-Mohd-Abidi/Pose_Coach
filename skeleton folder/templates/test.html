@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="static\\style.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/ecell-favicon.png">
+    <link rel="stylesheet" href="static\\nav.css">
+    <link rel="stylesheet" href="static\\default.css">
+    <title>Yoga Positions</title>
+    <style>
+        #video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #video {
+            width: 100%;
+            max-width: 640px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav class="mobile-menu">
+                <label for="show-menu" class="show-menu">
+                    <span style="color: #fff;">Yoga Positions
+                        <div style="float: right;
+							display: flex;
+							flex-direction: column;">
+                            <div class="hamb"></div>
+                            <div class="hamb"></div>
+                            <div class="hamb"></div>
+                        </div>
+                    </span>
+                </label>
+                <input type="checkbox" id="show-menu">
+                <ul class="nav_list" id="menu">
+                    <li class="nav_item"> <a href="index.html" class="nav_link active">Home</a> </li>
+                    <li class="nav_item"> <a href="yoga.html" class="nav_link active">Positions</a> </li>
+                </ul>
+            </nav>
+            <h1>Test Yoga Positions</h1>
+        </header>
+
+        <div id="video-container">
+            <video id="video" autoplay></video>
+        
+        </div>
+
+        <!-- Scripts -->
+        <script>
+            // Get video element
+            const video = document.getElementById('video');
+
+            // Prompt user to access webcam
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    // Assign the webcam stream to the video element
+                    video.srcObject = stream;
+                })
+                .catch(error => {
+                    console.error('Error accessing webcam:', error);
+                });
+        </script>
+        <span style="font-size:22px;">{{output}}</span>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.2/umd/popper.min.js'></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+        <script src="assets/js/custom.js"></script>
+        <script >
+            $(document).ready(function () {
+    $("#filter").keyup(function () {
+
+        // Retrieve the input field text and reset the count to zero
+        var filter = $(this).val(),
+            count = 0;
+
+        // Loop through the comment list
+        $("nav ul li.search").each(function () {
+
+            // If the list item does not contain the text phrase fade it out
+            if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                $(this).fadeOut();
+
+                // Show the list item if the phrase matches and increase the count by 1
+            } else {
+                $(this).show();
+                count++;
+            }
+        });
+
+        // Update the count
+
+        let result;
+        $("#filter-count").text(count + " Team(s) found");
+        if (count == 0) {
+            document.getElementById("cond").innerHTML = `No Team Found`;
+        } else {
+            `<p><p/>`
+        }
+    });
+});
+
+
+// Modal
+
+var btn = document.querySelectorAll("button.modalbutton");
+
+var modals = document.querySelectorAll('.modal');
+
+var spans = document.getElementsByClassName("close");
+
+//open
+
+for (var i = 0; i < btn.length; i++) {
+    btn[i].onclick = function (e) {
+        e.preventDefault();
+        modal = document.querySelector(e.target.getAttribute("href"));
+        modal.style.display = "block";
+    }
+}
+
+//close
+
+for (var i = 0; i < spans.length; i++) {
+    spans[i].onclick = function () {
+        for (var index in modals) {
+            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+        }
+    }
+}
+
+//outside
+
+window.onclick = function (event) {
+    if (event.target.classList.contains('modal')) {
+        for (var index in modals) {
+            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+        }
+    }
+}
+
+//blink
+var blink =
+    document.getElementById('blink');
+
+setInterval(function () {
+    blink.style.opacity =
+        (blink.style.opacity == 0 ? 1 : 0);
+}, 900);
+        </script>
+</body>
+
+</html>
